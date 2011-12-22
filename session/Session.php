@@ -6,12 +6,6 @@
  * Time: 16:13
  * To change this template use File | Settings | File Templates.
  */
-include "providers/SessionProvider.php";
-include "providers/ISessionProvider.php";
-include "providers/FileSessionProvider.php";
-include "SessionException.php";
-include "../cookie/CookieParameters.php";
-include "SessionStorage.php";
 class Session
 {
     /**
@@ -60,17 +54,4 @@ class Session
     }
 }
 
-$session = new Session();
-$session->setSessionProvider(new FileSessionProvider());
-
-$bag = new CookieParameters();
-$session->setCookieParameters(
-    $bag->setLifeTime(3600)
-        ->setHttpOnlyFlag(true)
-);
-$session->start();
-
-$session->getSessionStorage()->set("test", "value");
-
-echo $session->getSessionStorage()->get("test");
 

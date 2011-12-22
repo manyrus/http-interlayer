@@ -156,7 +156,7 @@ class CookieParameters
      */
     public function setLifeTime($time)
     {
-        $this->lifeTime = $time;
+        $this->lifeTime = time() + $time;
         return $this;
     }
 

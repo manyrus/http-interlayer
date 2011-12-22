@@ -1,7 +1,4 @@
 <?php
-include "CookieParameters.php";
-$_COOKIE["tt"] = "ttrr";
-$_COOKIE["tts"] = "ttrr";
 /**
  * Created by JetBrains PhpStorm.
  * User: manyrus
@@ -21,7 +18,8 @@ class Cookie
     }
 
     public function set($key, $value) {
-        setcookie($key, $value, $this->cookieParameters->getLifeTime(),
+        setcookie($key, $value,
+            $this->cookieParameters->getLifeTime(),
             $this->cookieParameters->getPath(),
             $this->cookieParameters->getDomain(),
             $this->cookieParameters->getHttpsFlag(),
@@ -30,11 +28,12 @@ class Cookie
     }
 
     public function get($key) {
+        if(empty($_COOKIE[$key])) throw new CookieException("Нет такого значения с ключом {$key}");
         return $_COOKIE[$key];
     }
 
     public function remove($key) {
-
+        if(!isset($_COOKIE[$key])) throw new CookieException("Нет такого значения с ключом {$key}");
         unset($_COOKIE[$key]);
     }
 
