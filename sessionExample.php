@@ -13,16 +13,20 @@ header("charset=utf-8");
 include "autoload.php";
 
 $session = new Session();
-$session->setSessionProvider(new FileSessionProvider());
+
+$file = new FileSessionProvider();
+$file->setDir();
+$session->setSessionProvider($file);
 
 $parameters = new CookieParameters();
 $session->setCookieParameters(
-    $parameters->setLifeTime(3600)
+    $parameters->setLifeTime(2)
         ->setHttpOnlyFlag(true)
 );
 $session->start();
 
 $session->getSessionStorage()->set("test", "value");
+$session->getSessionStorage()->set("test2", "value2");
 
 echo $session->getSessionStorage()->get("test");
 

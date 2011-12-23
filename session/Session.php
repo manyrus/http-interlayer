@@ -6,6 +6,7 @@
  * Time: 16:13
  * To change this template use File | Settings | File Templates.
  */
+
 class Session
 {
     /**

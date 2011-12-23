@@ -8,30 +8,56 @@
  */
 class FileSessionProvider extends SessionProvider implements ISessionProvider
 {
+    private $dir;
 
 
     public function close()
     {
-        // TODO: Implement close() method.
+        return true;
     }
 
     public function read($id)
     {
-        // TODO: Implement read() method.
+        $file = $this->dir."/".$id.".dat";
+        if(!is_file($file)) return false;
+        return file_get_contents($file);
     }
 
     public function write($id, $data)
     {
-        // TODO: Implement write() method.
+        $file = $this->dir."/".$id.".dat";
+        if(file_put_contents($file, $data)) {
+            return true;
+        }else {
+            return false;
+        }
+
+
     }
 
     public function destroy($id)
     {
-        // TODO: Implement destroy() method.
+        $dir = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($this->dir."/".$id.".dat"), true);
+        foreach($dir as $file) {
+            if($file->isFile()) {
+                unlink($file->getPathName());
+            }
+        }
     }
 
     public function gc($maxLifeTime)
     {
-        // TODO: Implement gc() method.
+        $dir = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($this->dir), true);
+        foreach($dir as $file) {
+            if($file->isFile()) {
+                if (substr(strrchr($file->getPathName(), '.'), 1) == "dat" && filemtime($file->getPathName()) + $maxLifeTime < time()) {
+                    unlink($file->getPathName());
+                }
+            }
+        }
+    }
+
+    public function setDir($dir = '.session') {
+        $this->dir = getcwd() . "/" . $dir; //bug
     }
 }

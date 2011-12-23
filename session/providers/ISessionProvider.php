@@ -6,6 +6,7 @@
  * Time: 16:15
  * To change this template use File | Settings | File Templates.
  */
+
 interface ISessionProvider
 {
     public function open($savePath, $sessionName);
