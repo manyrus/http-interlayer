@@ -21,6 +21,7 @@ class Session
 
     public function __construct() {
         ini_set('session.gc_maxlifetime', 2592000);
+
     }
 
 

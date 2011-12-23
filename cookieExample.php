@@ -20,8 +20,12 @@ $cookie->setCookieParameters(
         ->setHttpOnlyFlag(true)
 );
 $cookie->set("tes2t", "value");
+try {
+    echo $cookie->get("tes2t"); //исключение может возникнуть если COOKIE был полсан и сразу же был получен из хранилища.
+} catch(CookieException $e) {
+    echo "COOKIES была установлена первый раз!";
+}
 
-echo $cookie->get("tes2t");
 
 
 

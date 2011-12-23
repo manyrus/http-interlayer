@@ -8,6 +8,7 @@
  */
 class Cookie
 {
+    private $cache;
     /**
      * @var CookieParameters
      */
@@ -25,10 +26,13 @@ class Cookie
             $this->cookieParameters->getHttpsFlag(),
             $this->cookieParameters->getHttpOnlyFlag()
         );
+        $this->cache[$key] = $value;
     }
 
     public function get($key) {
-        if(empty($_COOKIE[$key])) throw new CookieException("Нет такого значения с ключом {$key}");
+        if(!isset($_COOKIE[$key])) {
+            throw new CookieException("Нет такого значения с ключом {$key}\n Внимание! Это ошибка может возникать тогда, когда COOKIES ещё не сохранён у клиента.");
+        }
         return $_COOKIE[$key];
     }
 

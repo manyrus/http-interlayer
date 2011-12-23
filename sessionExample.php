@@ -14,7 +14,7 @@ include "autoload.php";
 $session = new Session();
 
 $file = new FileSessionProvider();
-$file->setDir();
+
 $session->setSessionProvider($file);
 
 $parameters = new CookieParameters();

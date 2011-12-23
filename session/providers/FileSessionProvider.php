@@ -10,6 +10,10 @@ class FileSessionProvider extends SessionProvider implements ISessionProvider
 {
     private $dir;
 
+    public function __construct() {
+        $this->dir = getcwd() . "/.session";
+    }
+
 
     public function close()
     {
@@ -57,7 +61,7 @@ class FileSessionProvider extends SessionProvider implements ISessionProvider
         }
     }
 
-    public function setDir($dir = '.session') {
+    public function setDir($dir) {
         $this->dir = getcwd() . "/" . $dir; //bug
     }
 }
