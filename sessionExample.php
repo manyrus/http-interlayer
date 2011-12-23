@@ -8,7 +8,6 @@
  */
 ini_set("display_errors","1");
 error_reporting(E_ALL);
-header("charset=utf-8");
 
 include "autoload.php";
 
@@ -20,7 +19,7 @@ $session->setSessionProvider($file);
 
 $parameters = new CookieParameters();
 $session->setCookieParameters(
-    $parameters->setLifeTime(2)
+    $parameters->setLifeTime(3600)
         ->setHttpOnlyFlag(true)
 );
 $session->start();

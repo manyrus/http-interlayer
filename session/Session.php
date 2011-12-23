@@ -19,6 +19,16 @@ class Session
      */
     private $init = false;
 
+    public function __construct() {
+        ini_set('session.gc_maxlifetime', 2592000);
+    }
+
+
+    public function setGcMaxLifeTime($gcMaxLifeTime) {
+        if($this->init) throw new SessionException("Метод \"Session::setGcMaxLifeTime()\" может быть вызван до вызова метода \"Session::start()\".");
+        ini_set('session.gc_maxlifetime', $gcMaxLifeTime);
+    }
+
 
     public function start() {
         session_start();
@@ -51,7 +61,12 @@ class Session
 
     public function setCookieParameters(CookieParameters $bag) {
         if($this->init) throw new SessionException("Метод \"Session::setCookieParameters()\" может быть вызван после вызова метода \"Session::start()\".");
-        session_set_cookie_params($bag->getLifeTime(), $bag->getPath(), $bag->getDomain(), $bag->getHttpsFlag(), $bag->getHttpOnlyFlag());
+        session_set_cookie_params(
+            $bag->getLifeTime() ,
+            $bag->getPath(),
+            $bag->getDomain(),
+            $bag->getHttpsFlag(),
+            $bag->getHttpOnlyFlag());
     }
 }
 

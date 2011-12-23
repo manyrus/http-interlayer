@@ -151,12 +151,12 @@ class CookieParameters
 
     /**
      * Время жизни cookie
-     * @param int $time
+     * @param string $time
      * @return \CookieParameters
      */
     public function setLifeTime($time)
     {
-        $this->lifeTime = time() + $time;
+        $this->lifeTime = $time;
         return $this;
     }
 

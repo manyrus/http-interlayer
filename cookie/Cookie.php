@@ -19,7 +19,7 @@ class Cookie
 
     public function set($key, $value) {
         setcookie($key, $value,
-            $this->cookieParameters->getLifeTime(),
+            $this->cookieParameters->getLifeTime() + time(),
             $this->cookieParameters->getPath(),
             $this->cookieParameters->getDomain(),
             $this->cookieParameters->getHttpsFlag(),
